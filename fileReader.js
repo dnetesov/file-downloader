@@ -27,7 +27,7 @@ const contentToObjects = (parsedContent) => {
 
 const mergeSameHrefsFilenames = (objects) => {
 
-    let o = objects.reduce((prev, current, index, array) => {
+    return objects.reduce((prev, current, index, array) => {
         let match = _.findIndex(prev, (el) => {return el.href == current.href;});
         if(match >= 0){
             prev[match].names = prev[match].names
@@ -42,7 +42,6 @@ const mergeSameHrefsFilenames = (objects) => {
             return prev.concat(current);
         }
     }, []);
-    return o;
 };
 
 module.exports.getParsedContent = (path) => {

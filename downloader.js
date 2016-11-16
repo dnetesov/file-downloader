@@ -18,20 +18,19 @@ module.exports.mkDirIfNotExists = (directory) => {
 };
 
 module.exports.downloadFiles = (parsedObjects, directory) => {
-    let promises = [];
 
-    parsedObjects.forEach((el) => {
+    return parsedObjects.map((el) => {
+
         let promise = download(el.href);
-        promises = promises.concat(promise);
-
         promise.then(data => {
             el.names.forEach( name => {
                 fs.writeFileSync(directory + name, data);
             });
         });
+
+        return promise;
     });
 
-    return promises;
 };
 
 module.exports.printResults = (promises) => {
